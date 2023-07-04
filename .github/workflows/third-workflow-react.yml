@@ -19,10 +19,8 @@ jobs:
               run: npm ci
               working-directory: ./code/03_Practice_Project/
             - name: Run linters
-              uses: wearerequired/lint-action@v2
-              with:
-                eslint: true
-                eslint_args: 'code/03_Practice_Project/**/*.js'
+              run: yarn run eslint --ext .jsx --fix src
+              working-directory: ./code/03_Practice_Project
     run-tests:
         runs-on: ubuntu-latest
         needs: run-linters
