@@ -17,7 +17,7 @@ jobs:
                 node-version: 18
             - name: Install Dependencies
               run: npm ci
-              working-directory: 'code/03_Practice_Project/**'
+              working-directory: ./code/03_Practice_Project/
             - name: Run linters
               uses: wearerequired/lint-action@v2
               with:
@@ -35,10 +35,10 @@ jobs:
                 node-version: 18
             - name: Install Dependencies
               run: npm ci
-              working-directory: 'code/03_Practice_Project/**'
+              working-directory: ./code/03_Practice_Project
             - name: Run tests
               run: npm test
-              working-directory: 'code/03_Practice_Project/**'
+              working-directory: ./code/03_Practice_Project/
 
     build:
         runs-on: ubuntu-latest
@@ -52,9 +52,9 @@ jobs:
                 node-version: 18
             - name: Install Dependencies
               run: npm ci
-              working-directory: 'code/03_Practice_Project/**'
+              working-directory: ./code/03_Practice_Project
             - name: Build project
               run: npm build
-              working-directory: 'code/03_Practice_Project/**'
+              working-directory: ./code/03_Practice_Project
             - name: Deploy
               run: echo "Deploying...."
