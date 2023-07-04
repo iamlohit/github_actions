@@ -22,7 +22,9 @@ jobs: #This is a GHA identifier and cannot be changed.
               run: npm test #Here we ask NPM to be run on the test folder with setup.js file. It automatically looks for the test file and runs it.
               working-directory: ./code/02_Starting_Project #With this we define where to run the above command in.
 
+# Now running a test and build/deploy job, it would make no sense to build/deploy code that fails CI tests, hence we can introduce dependencies with the needs keyword, and we can have more than 1 dependency.              
     deploy: #We can have more than 1 jobs in a workflow. Note that each job happens in parallel by default.
+        needs: test #Here we specify the job that is the dependency for this job, until the test jobs finishes successfully, the deploy job will not run, This is how we create pipelines.
         runs-on: ubuntu-latest #Each job gets its own runner, thats how they can run in parallel.
         steps: #This defines the steps to be taken as part of this workflow.
             - name: Get the code #Every step needs a user defined name.
