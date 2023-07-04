@@ -1,0 +1,22 @@
+name: Unit Test for React #This is a user defined name of the action.
+on: #This is to define what will be the trigger for this action.
+    push: #Here we are saying, Run this action on a push event. We can stop here but we want it to run in a specific situation.
+        branches: [ main ] #Here we say Run this action when the push is to the main branch.
+        paths: #And when the push event to main branch is on the following folder and subfolders only.
+        - '02_Starting_Project/**' #Note that both these conditions need to be satisfied to run this workflow.
+
+jobs: #This is a GHA identifier and cannot be changed.
+    test: #This can be named anything you like. This is name of the Job.
+        runs-on: ubuntu-latest #This defines the runner on which our actions/commands will be run on.
+        steps: #This defines the steps to be taken as part of this workflow.
+            - name: Get the code #Every step needs a user defined name.
+              uses: actions/checkout@v3 #Instead of using run to run a shell command, we use a prebuilt action for common steps from marketplace.
+            - name: Install NodeJS #Although Node and many other tools are pre installed, we do this just as a proof of concept. https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md
+              uses: actions/setup-node@v3 #Again we use a community action to install node JS on this runner.
+              with: #We specify conditions like version to install with this identifier.
+                node-version: 18 #Here we are asking for a specific version.
+            - name: Install dependencies #This is our next step we want to run, as usual the value is user defined.
+              run: npm ci #Here we tell npm to install all dependencies in the package-lock.json file for our project.
+            - name: Run tests
+              run: npm test #Here we ask NPM to be run on the test folder with setup js file. It automatically looks for the test file and runs it.
+
