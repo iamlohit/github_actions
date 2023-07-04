@@ -18,5 +18,5 @@ jobs: #This is a GHA identifier and cannot be changed.
             - name: Install dependencies #This is our next step we want to run, as usual the value is user defined.
               run: npm ci #Here we tell npm to install all dependencies in the package-lock.json file for our project.
             - name: Run tests
-              run: npm test #Here we ask NPM to be run on the test folder with setup js file. It automatically looks for the test file and runs it.
+              run: npm test #Here we ask NPM to be run on the test folder with setup.js file. It automatically looks for the test file and runs it.
 
