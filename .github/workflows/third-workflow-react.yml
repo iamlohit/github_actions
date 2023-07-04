@@ -57,4 +57,4 @@ jobs:
               run: npm build
               working-directory: 'code/03_Practice_Project/**'
             - name: Deploy
-              run: echo "Deployin...."
+              run: echo "Deploying...."
