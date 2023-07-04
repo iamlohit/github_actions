@@ -18,9 +18,12 @@ jobs:
             - name: Install Dependencies
               run: npm ci
               working-directory: ./code/03_Practice_Project/
+            - name: Initialise EsLint
+              run: npx eslint --init
+              working-directory: ./code/03_Practice_Project/src
             - name: Run linters
-              run: yarn run eslint --ext .jsx --fix src/
-              working-directory: ./code/03_Practice_Project
+              run: npx eslint --ext .jsx --fix src/
+              working-directory: ./code/03_Practice_Project/src
     run-tests:
         runs-on: ubuntu-latest
         needs: run-linters
