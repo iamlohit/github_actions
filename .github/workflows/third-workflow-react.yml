@@ -20,7 +20,8 @@ jobs:
               working-directory: ./code/03_Practice_Project/
             - name: Lint
               run: npm run lint
-              
+              working-directory: ./code/03_Practice_Project/
+
     run-tests:
         runs-on: ubuntu-latest
         needs: run-linters
