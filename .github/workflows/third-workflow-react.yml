@@ -19,7 +19,7 @@ jobs:
               run: npm ci
               working-directory: ./code/03_Practice_Project/
             - name: Lint
-              run: npx eslint --ext .jsx
+              run: npm run lint
               working-directory: ./code/03_Practice_Project/src/
             - name: Run tests
               run: npm run test
