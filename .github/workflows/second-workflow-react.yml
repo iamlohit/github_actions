@@ -17,6 +17,8 @@ jobs: #This is a GHA identifier and cannot be changed.
                 node-version: 18 #Here we are asking for a specific version.
             - name: Install dependencies #This is our next step we want to run, as usual the value is user defined.
               run: npm ci #Here we tell npm to install all dependencies in the package-lock.json file for our project.
+              working-directory: ./code/02_Starting_Project #By default the run commands expect any dependency files to be in the root directory of your repo.
             - name: Run tests
               run: npm test #Here we ask NPM to be run on the test folder with setup.js file. It automatically looks for the test file and runs it.
+              working-directory: ./code/02_Starting_Project #With this we define where to run the above command in.
 
