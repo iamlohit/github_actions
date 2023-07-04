@@ -6,26 +6,22 @@ on:
             - 'code/03_Practice_Project/**'
 
 jobs:
-    run-linters:
+    build-test-deploy-pipeline:
         runs-on: ubuntu-latest
         steps:
             - name: Check out Git Repo
               uses: actions/checkout@v3
-            - name: Set up Node.js
-              uses: actions/setup-node@v3
-              with:
-                node-version: 18
             - name: Install Dependencies
               run: npm ci
               working-directory: ./code/03_Practice_Project/
             - name: Lint
               run: npm run lint
-              working-directory: ./code/03_Practice_Project/src/
+              working-directory: ./code/03_Practice_Project/
             - name: Run tests
               run: npm run test
-              working-directory: ./code/03_Practice_Project/
+              working-directory: ./code/03_Practice_Project/src/**
             - name: Build project
               run: npm build
-              working-directory: ./code/03_Practice_Project
+              working-directory: ./code/03_Practice_Project/
             - name: Deploy
               run: echo "Deploying...."
