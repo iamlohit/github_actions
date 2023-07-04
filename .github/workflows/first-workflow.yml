@@ -8,3 +8,8 @@ jobs: #Make sure it reads "Jobs" and NOT JOB. This is an GHA Identifier. This do
               run: echo "Hello World"  #This is where we define what command to run.
             - name: Print Goodbye
               run: echo "Done - bye!"
+
+              # To run multiline shell commands we can run it as such:
+                # run: |
+                  # echo "First Output"
+                  # echo "Second Output"
