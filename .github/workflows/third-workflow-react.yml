@@ -22,7 +22,7 @@ jobs:
               run: npx eslint --init
               working-directory: ./code/03_Practice_Project/src
             - name: Run linters
-              run: npx eslint --ext .jsx --fix src
+              run: npx eslint --ext .jsx
               working-directory: ./code/03_Practice_Project/src
     run-tests:
         runs-on: ubuntu-latest
