@@ -1,0 +1,10 @@
+name: First Workflow #You can choose the name of your liking.
+on: workflow_dispatch #Here we define the trigger to run this job. Here we are manually Triggering a workflow.
+jobs: #Make sure it reads "Jobs" and NOT JOB. This is an GHA Identifier. This does not take a value directly.
+    first_job: #This is indented to make it a part of jobs. This also does not take a value directly. This is not a GHA identifier. Can be anything.
+        runs-on: ubuntu-latest #This is an identifier. This is where we define which env where the job will run on.cancel-timeout-minutes: 
+        steps: #This is also a GHA Identifier.
+            - name: Print Greeting #Every step has to have a name.
+              run: echo "Hello World"  #This is where we define what command to run.
+            - name: Print Goodbye
+              run: echo "Done - bye!"
