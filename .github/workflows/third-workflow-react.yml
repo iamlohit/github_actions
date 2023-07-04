@@ -19,7 +19,7 @@ jobs:
               run: npm ci
               working-directory: ./code/03_Practice_Project/
             - name: Run linters
-              run: yarn run eslint --ext .jsx --fix src
+              run: yarn run eslint --ext .jsx --fix src/
               working-directory: ./code/03_Practice_Project
     run-tests:
         runs-on: ubuntu-latest
