@@ -40,7 +40,7 @@ jobs:
               working-directory: ./code/03_Practice_Project
             - name: Run tests
               run: npm test
-              working-directory: ./code/03_Practice_Project/
+              working-directory: ./code/03_Practice_Project/src/components
 
     build:
         runs-on: ubuntu-latest
