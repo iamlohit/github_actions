@@ -1,0 +1,60 @@
+name: Test & Deploy 03_Practice_Project
+on:
+    push: 
+        branches: [ main ]
+        paths:
+            - 'code/03_Practice_Project/**'
+
+jobs:
+    run-linters:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out Git Repo
+              uses: actions/checkout@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: 18
+            - name: Install Dependencies
+              run: npm ci
+              working-directory: 'code/03_Practice_Project/**'
+            - name: Run linters
+              uses: wearerequired/lint-action@v2
+              with:
+                eslint: true
+                eslint_args: 'code/03_Practice_Project/**/*.js'
+    run-tests:
+        runs-on: ubuntu-latest
+        needs: run-linters
+        steps:
+            - name: Check out Git Repo
+              uses: actions/checkout@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: 18
+            - name: Install Dependencies
+              run: npm ci
+              working-directory: 'code/03_Practice_Project/**'
+            - name: Run tests
+              run: npm test
+              working-directory: 'code/03_Practice_Project/**'
+
+    build:
+        runs-on: ubuntu-latest
+        needs: [ run-linters, run-tests ]
+        steps:
+            - name: Check out Git Repo
+              uses: actions/checkout@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: 18
+            - name: Install Dependencies
+              run: npm ci
+              working-directory: 'code/03_Practice_Project/**'
+            - name: Build project
+              run: npm build
+              working-directory: 'code/03_Practice_Project/**'
+            - name: Deploy
+              run: echo "Deployin...."
