@@ -20,7 +20,7 @@ jobs:
               working-directory: ./code/03_Practice_Project/
             - name: Initialise Lint config
               run: npx eslint --init
-              working-directory: ./code/03_Practice_Project/src/
+              working-directory: ./code/03_Practice_Project/
             - name: Lint
               run: npx eslint --ext .jsx
               working-directory: ./code/03_Practice_Project/src/
