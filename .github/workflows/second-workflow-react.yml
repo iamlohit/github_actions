@@ -3,7 +3,7 @@ on: #This is to define what will be the trigger for this action.
     push: #Here we are saying, Run this action on a push event. We can stop here but we want it to run in a specific situation.
         branches: [ main ] #Here we say Run this action when the push is to the main branch.
         paths: #And when the push event to main branch is on the following folder and subfolders only.
-        - '02_Starting_Project/**' #Note that both these conditions need to be satisfied to run this workflow.
+        - 'code/02_Starting_Project/**' #Note that both these conditions need to be satisfied to run this workflow.
 
 jobs: #This is a GHA identifier and cannot be changed.
     test: #This can be named anything you like. This is name of the Job.
