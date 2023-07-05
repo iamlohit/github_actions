@@ -1,0 +1,31 @@
+name: Events Deepdive
+on:
+    push: 
+        branches: [ main ]
+        paths:
+            - 'code/03-practice-project/**'
+    workflow_dispatch:
+    pull_request:
+        types:
+            - opened
+
+jobs:
+    build-test-deploy-pipeline:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out Git Repo
+              uses: actions/checkout@v3
+            - name: Install Dependencies
+              run: npm ci
+              working-directory: ./code/03-practice-project/
+            - name: Lint
+              run: npm run lint
+              working-directory: ./code/03-practice-project/
+            - name: Run tests
+              run: npm run test
+              working-directory: ./code/03-practice-project/
+            - name: Build project
+              run: npm run build
+              working-directory: ./code/03-practice-project/
+            - name: Deploy
+              run: echo "Deploying...."
