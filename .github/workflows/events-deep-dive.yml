@@ -1,13 +1,13 @@
 name: Events Deepdive
 on:
-    push: 
-        branches: [ main ]
-        paths:
-            - 'code/03-practice-project/**'
-    workflow_dispatch:
-    pull_request:
-        types:
-            - opened
+    push: #This is an event.
+        branches: [ main ] #This is an event filter.
+        paths:             #This is also an event filter.
+            - 'code/03-practice-project/**' #This is a filter parameter.
+    workflow_dispatch:     #This is an event. (For manual trigger)
+    pull_request:          #This is an event.
+        types:             #This is an event filter.
+            - opened       #This is an evet filter parameter.
 
 jobs:
     build-test-deploy-pipeline:
