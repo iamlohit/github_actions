@@ -21,7 +21,7 @@ jobs:
               run: npm run test
               working-directory: ./code/03-practice-project/
             - name: Build project
-              run: npm build
+              run: npm run build
               working-directory: ./code/03-practice-project/
             - name: Deploy
               run: echo "Deploying...."
