@@ -3,7 +3,7 @@ on:
     push: 
         branches: [ main ]
         paths:
-            - 'code/03-practice-project/**'
+            - '.github/workflows/collecting-artifacts.yml'
 
 jobs:
     test:
@@ -36,8 +36,8 @@ jobs:
             - name: Upload Artifacts
               uses: actions/upload-artifact@v3
               with:
-                name: dist-files #The name is upto us, but this is needed to reference these files in other jobs below, like deploy.
-                path: dist #This notes the folder where you need to store the files/artifacts.
+                name: artifact-files #The name is upto us, but this is needed to reference these files in other jobs below, like deploy.
+                path: ./code/03-practice-project/artifacts #This notes the folder where you need to store the files/artifacts.
                      
     deploy:
         needs: build

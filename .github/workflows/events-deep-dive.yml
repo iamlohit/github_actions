@@ -4,6 +4,7 @@ on:
         branches: [ main ] #This is an event filter.
         paths:             #This is also an event filter.
             - 'code/03-practice-project/**' #This is a filter parameter.
+            - '!.github/**'
     workflow_dispatch:     #This is an event. (For manual trigger)
     pull_request:          #This is an event.
         types:             #This is an event filter.

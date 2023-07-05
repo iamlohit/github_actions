@@ -4,6 +4,7 @@ on:
         branches: [ main ]
         paths:
             - 'code/03-practice-project/**'
+            - '!.github/**'
 
 jobs:
     build-test-deploy-pipeline:
