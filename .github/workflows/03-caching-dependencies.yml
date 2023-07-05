@@ -3,7 +3,7 @@ on:
     push: 
         branches: [ main ]
         paths:
-            - '.github/workflows/collecting-artifacts.yml'
+            - '.github/workflows/03-caching-dependencies.yml'
 
 jobs:
     test:
@@ -11,6 +11,11 @@ jobs:
         steps:
             - name: Check out Git Repo
               uses: actions/checkout@v3
+            - name: Cache Dependencies #To cache the dependencies downloaded in the next step. This is just the name of the steps.
+              uses: actions/cache@v3
+              with:
+                path: ~/.npm #This is the NPM folder where NPM downloads the dependencies.enableCrossOsArchive: 
+                key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} #This creates a hash file for a given package-lock.json file and hash changes if changes are made to this file. That is how the cache is invalidated.
             - name: Install Dependencies
               run: npm ci
               working-directory: ./code/03-practice-project/
@@ -27,6 +32,11 @@ jobs:
         steps:
             - name: Check out Git Repo
               uses: actions/checkout@v3
+            - name: Cache Dependencies #To cache the dependencies downloaded in the next step. This is just the name of the step.
+              uses: actions/cache@v3
+              with:
+                  path: ~/.npm #This is the NPM folder where NPM downloads the dependencies.enableCrossOsArchive: 
+                  key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} #This creates a hash file for a given package-lock.json file and hash changes if changes are made to this file. That is how the cache is invalidated.
             - name: Install Dependencies
               run: npm ci
               working-directory: ./code/03-practice-project/
@@ -45,3 +55,5 @@ jobs:
         steps:
             - name: Deploy
               run: echo "Deploying...."
+
+              #Those caches are available across jobs and hence across runners. As we run the workflow, we can see the difference in speed between jobs.
