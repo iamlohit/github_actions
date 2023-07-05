@@ -11,7 +11,7 @@ jobs:
         steps:
             - name: Check out Git Repo
               uses: actions/checkout@v3
-            - name: Cache Dependencies #To cache the dependencies downloaded in the next step. This is just the name of the step.
+            - name: Cache Dependencies #To cache the dependencies downloaded in the next step. This is just the name of the steps.
               uses: actions/cache@v3
               with:
                 path: ~/.npm #This is the NPM folder where NPM downloads the dependencies.enableCrossOsArchive: 
