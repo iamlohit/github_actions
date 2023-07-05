@@ -19,7 +19,7 @@ jobs:
               working-directory: ./code/03-practice-project/
             - name: Run tests
               run: npm run test
-              working-directory: ./code/03-practice-project/src/**
+              working-directory: ./code/03-practice-project/
             - name: Build project
               run: npm build
               working-directory: ./code/03-practice-project/
