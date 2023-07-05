@@ -5,6 +5,15 @@ const dbUser = process.env.MONGODB_USERNAME;
 const dbPassword = process.env.MONGODB_PASSWORD;
 const dbName = process.env.MONGODB_DB_NAME;
 
+// The above variables after .env.xx are the variables that can change based on the environment they are used in.
+// i.e. The values can be different for Dev env vs Prod env.
+// These are the env variables that we will demo in the workflow used with this REST API based project.
+// Here we are using the following:
+  // MONGODB_CLUSTER_ADDRESS
+  // MONGODB_USERNAME
+  // MONGODB_PASSWORD
+  // MONGODB_DB_NAME
+
 const uri = `mongodb+srv://${dbUser}:${dbPassword}@${clusterAddress}/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri);
 
