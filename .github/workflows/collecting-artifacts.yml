@@ -37,7 +37,7 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                 name: artifact-files #The name is upto us, but this is needed to reference these files in other jobs below, like deploy.
-                path: ./code/03-practice-project/artifacts #This notes the folder where you need to store the files/artifacts.
+                path: ./code/03-practice-project/artifacts #This notes the folder where you need to store the files/artifact.
                      
     deploy:
         needs: build
