@@ -37,13 +37,11 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                 name: dist-files #The name is upto us, but this is needed to reference these files in other jobs below, like deploy.
-                path: | #This notes the folder where you need to store the files/artifacts.
-                    dist 
-
+                path: dist #This notes the folder where you need to store the files/artifacts.
+                     
     deploy:
         needs: build
         runs-on: ubuntu-latest
         steps:
-
             - name: Deploy
               run: echo "Deploying...."
