@@ -33,10 +33,13 @@ jobs:
                 key: npm-deps-${{ hashFiles('**/04-Env-Secrets-Demo/package-lock.json') }}
             - name: Install Dependencies
               run: npm ci
+              working-directory: code/04-Env-Secrets-Demo
             - name: Run Server
               run: npm start & npx wait-on http://127.0.0.1:$PORT
+              working-directory: code/04-Env-Secrets-Demo
             - name: Run tests
               run: npm test
+              working-directory: code/04-Env-Secrets-Demo
             - name: Output information
               run: 'echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"'
     deploy:
