@@ -19,8 +19,8 @@ jobs:
     test:
         env: # This is setting the following variables at the Job level. This is available to all Steps but not other Jobs.
             MONGODB_CLUSTER_ADDRESS: cluster0.xinsgwb.mongodb.net
-            MONGODB_USERNAME: mongo-atlas-api-user
-            MONGODB_PASSWORD: RhqxbtuEr8CirB0Y
+            MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+            MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
             PORT: 8080
         runs-on: ubuntu-latest
         steps:
