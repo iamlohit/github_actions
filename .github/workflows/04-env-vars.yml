@@ -1,0 +1,48 @@
+name: Env Variables
+on:
+    push:
+        branches: [ main ]
+        paths: |
+            - '.github/workflows/04-env-vars.yml'
+            - 'code/04-Env-Secrets-Demo/**'
+
+# We can define ENV Variables & Value pairs at the following levels:
+    # Workflow - Availale to all jobs and hence steps.
+    # Jobs - Available to only the job its defined under. Overrides the Workflow variable values.
+    # Steps - Available to only the step that is using it. Overrides the Jobs variable values.
+# Each one supercedes the previous value.
+
+env: # This is setting the following variables at the workflow level. This is available to all Jobs, unless overriden by job level variable.
+    MONGODB_DB_NAME: gha-demo
+jobs:
+    test:
+        env: # This is setting the following variables at the Job level. This is available to all Steps but not other Jobs.
+            MONGODB_CLUSTER_ADDRESS: cluster0.xinsgwb.mongodb.net
+            MONGODB_USERNAME: mongo-atlas-api-user
+            MONGODB_PASSWORD: RhqxbtuEr8CirB0Y
+            PORT: 8080
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get code
+              uses: actions/checkout@v3
+            - name: Cache Dependencies
+              uses: actions/cache@v3
+              with:
+                path: ~/.npm
+                key: npm-deps-${{ hashFiles('code/04-Env-Secrets-Demo/package-lock.json') }}
+            - name: Install Dependencies
+              run: npm ci
+            - name: Run Server
+              run: npm start & npx wait-on http://127.0.0.1:$PORT
+            - name: Run tests
+              run: npm test
+            - name: Output information
+              run: 'echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"'
+    deploy:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+            - name: Output information
+              run: |
+                 echo "MONGODB_USERNAME: $MONGODB_USERNAME"'
+
