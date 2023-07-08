@@ -4,7 +4,7 @@ on:
         branches: [ main ]
         paths:
             - '.github/workflows/05-execution-flow.yml'
-            - ./code/03-practice-project/
+            - 'code/03-practice-project/'
 
 jobs:
     lint:
@@ -19,10 +19,10 @@ jobs:
                 key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} #This creates a hash file for a given package-lock.json file and hash changes if changes are made to this file. That is how the cache is invalidated.
             - name: Install Dependencies
               run: npm ci
-              working-directory: ./code/03-practice-project/
+              working-directory: code/03-practice-project/
             - name: Lint
               run: npm run lint
-              working-directory: ./code/03-practice-project/
+              working-directory: code/03-practice-project/
 
     test:
         runs-on: ubuntu-latest
@@ -36,15 +36,15 @@ jobs:
                 key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} #This creates a hash file for a given package-lock.json file and hash changes if changes are made to this file. That is how the cache is invalidated.
             - name: Install Dependencies
               run: npm ci
-              working-directory: ./code/03-practice-project/
+              working-directory: code/03-practice-project/
             - name: Run tests
               run: npm run test
-              working-directory: ./code/03-practice-project/
+              working-directory: code/03-practice-project/
             - name: Upload test report
               uses: actions/upload-artifact@v3
               with:
                 name: test-report
-                path: ./code/03-practice-project/test.json
+                path: code/03-practice-project/test.json
     build:
         needs: test
         runs-on: ubuntu-latest
@@ -58,15 +58,15 @@ jobs:
                 key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} #This creates a hash file for a given package-lock.json file and hash changes if changes are made to this file. That is how the cache is invalidated.
             - name: Install Dependencies
               run: npm ci
-              working-directory: ./code/03-practice-project/
+              working-directory: code/03-practice-project/
             - name: Build website
               run: npm run build
-              working-directory: ./code/03-practice-project/
+              working-directory: code/03-practice-project/dist/
             - name: Upload Artifacts
               uses: actions/upload-artifact@v3
               with:
                 name: dist-files #The name is upto us, but this is needed to reference these files in other jobs below, like deploy.
-                path: ./code/03-practice-project/artifacts #This notes the folder where you need to store the files/artifact.
+                path: code/03-practice-project/artifacts #This notes the folder where you need to store the files/artifact.
                      
     deploy:
         needs: build
@@ -77,6 +77,6 @@ jobs:
               with:
                 name: dist-files
             - name: Output Contents
-              run: ls
+              run: ls dist-files
             - name: Deploy
               run: echo "Deploying...."
