@@ -26,3 +26,4 @@ jobs:
               working-directory: code/03-practice-project/
             - name: Build project
               run: npm run build
+              working-directory: code/03-practice-project/
