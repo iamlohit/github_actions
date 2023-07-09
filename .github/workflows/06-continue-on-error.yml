@@ -1,0 +1,103 @@
+name: continue-on-error
+on:
+    push: 
+        branches: [ main ]
+        paths:
+            - '.github/workflows/06-continue-on-error.yml'
+            - 'code/03-practice-project/'
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get code
+              uses: actions/checkout@v3
+            - name: Cache Dependencies #To cache the dependencies downloaded in the next step. This is just the name of the steps.
+              uses: actions/cache@v3
+              id: cache
+              with:
+                path: node_modules
+                key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} #This creates a hash file for a given package-lock.json file and hash changes if changes are made to this file. That is how the cache is invalidated.
+            - name: Install Dependencies
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: npm ci
+              working-directory: code/03-practice-project/
+            - name: Lint
+              run: npm run lint
+              working-directory: code/03-practice-project/
+
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get code
+              uses: actions/checkout@v3
+            - name: Cache Dependencies #To cache the dependencies downloaded in the next step. This is just the name of the steps.
+              uses: actions/cache@v3
+              id: cache
+              with:
+                path: node_modules
+                key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} #This creates a hash file for a given package-lock.json file and hash changes if changes are made to this file. That is how the cache is invalidated.
+            - name: Install Dependencies
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: npm ci
+              working-directory: code/03-practice-project/
+            - name: Run tests
+              id: run-tests #This is a user chosen ID used to reference this step elsewhere, in our cast its used in the if statement in next step.
+              run: npm run test
+              working-directory: code/03-practice-project/
+            - name: Upload test report #By default, if a step fails, everything beyond the step and jobs fail.
+              continue-on-error: true
+              uses: actions/upload-artifact@v3
+              with:
+                name: test-report
+                path: code/03-practice-project/test.json
+    build:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get code
+              uses: actions/checkout@v3
+            - name: Cache Dependencies #To cache the dependencies downloaded in the next step. This is just the name of the steps.
+              uses: actions/cache@v3
+              id: cache
+              with:
+                path: node_modules
+                key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} #This creates a hash file for a given package-lock.json file and hash changes if changes are made to this file. That is how the cache is invalidated.
+            - name: Install Dependencies
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: npm ci
+              working-directory: code/03-practice-project/
+            - name: Build website
+              run: npm run build
+              working-directory: code/03-practice-project/
+            - name: Upload Artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                name: dist-files #The name is upto us, but this is needed to reference these files in other jobs below, like deploy.
+                path: code/03-practice-project/dist #This notes the folder where you need to store the files/artifact.
+                     
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get build artifacts
+              uses: actions/download-artifact@v3
+              with:
+                name: dist-files
+            - name: Output Contents
+              run: ls
+            - name: Deploy
+              run: echo "Deploying...."
+
+    report: # Creating a new job to report what went wrong.
+        needs: [ lint, deploy ] # If we do not introduce this need, then it will run in parallel with Lint and hence never run.
+        if: failure()
+        # This expression/condition above calls the below function if any of the previous job fails, but it needs to run in sequence, not in parallel.
+        runs-on: ubuntu-latest
+        steps:
+            - name: Output information
+              run: |
+                echo "Something went wrong"
+                echo '${{ toJSON(github) }}'
+            # This returns the github object, and the toJSON parses the data in the object as a JSON file.
+            
