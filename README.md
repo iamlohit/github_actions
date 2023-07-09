@@ -3,7 +3,7 @@
 
 #### This Repo has a few React and API projects in the code folder, which are used for understanding and learning Github Workflows.
 ### The key concepts here are commented within the workflow files themselves.
-#### Hope you learn something new here and if you are new to GitHub Actions then hope is that it gives you what's instore for you when you get to this.
+#### Hope you learn something new here and if you are new to GitHub Actions then hope is that it gives you a glimpse of what's instore for you when you get to this.
 
 Dir Structure:
 
