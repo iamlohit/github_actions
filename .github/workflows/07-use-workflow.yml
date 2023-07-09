@@ -1,4 +1,4 @@
-name: Use a reusable workflow
+name: Use a reusable workflow demo
 on:
     push: 
         branches: [ main ]
