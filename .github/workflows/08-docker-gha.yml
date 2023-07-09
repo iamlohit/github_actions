@@ -31,6 +31,7 @@ jobs:
         working-directory: code/05-docker-gha-demo
       - name: Run server
         run: npm start & npx wait-on http://127.0.0.1:$PORT # requires MongoDB Atlas to accept requests from anywhere!
+        working-directory: code/05-docker-gha-demo
       - name: Run tests
         run: npm test
         working-directory: code/05-docker-gha-demo
