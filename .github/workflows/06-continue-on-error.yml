@@ -42,6 +42,7 @@ jobs:
               run: npm ci
               working-directory: code/03-practice-project/
             - name: Run tests
+              continue-on-error: true
               id: run-tests #This is a user chosen ID used to reference this step elsewhere, in our cast its used in the if statement in next step.
               run: npm run test
               working-directory: code/03-practice-project/
