@@ -99,5 +99,5 @@ jobs:
             - name: Output information
               run: |
                 echo "Something went wrong"
-                echo "${{ toJSON(github) }}"
+                echo '${{ toJSON(github) }}'
             # This returns the github object, and the toJSON parses the data in the object as a JSON file.
