@@ -3,7 +3,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - '.github/workflows/08-service-container.yml'
+      - '.github/workflows/08-service-containers.yml'
       - 'code/05-docker-gha-demo/'
 env:
   CACHE_KEY: node-deps
