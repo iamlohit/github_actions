@@ -7,3 +7,4 @@ jobs:
         steps:
             - name: Output Information
               run: echo "Deploying & uploading"
+              
