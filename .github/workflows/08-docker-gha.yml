@@ -15,6 +15,7 @@ jobs:
     container:
       image: node:16 #Container keyword and the docker image to use.
     env: #This variables are for the runner machine and not the contianer, as its not nested inside the container here.
+    # Here we are running the MongoDB Service externally.
       MONGODB_CONNECTION_PROTOCOL: mongodb+srv
       MONGODB_CLUSTER_ADDRESS: cluster0.xinsgwb.mongodb.net
       MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
