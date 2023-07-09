@@ -44,9 +44,12 @@ jobs:
             - name: Upload test report #By default, if a step fails, everything beyond the step and jobs fail.
               if: failure() && steps.run-tests.outcome == 'failure'
               # Here we are saying that if the run-tests step succeeds, dont upload a report file, but if it fails, do upload a test-report file.
-              # Which is the opposite of the default behaviour since if run-tests fails, by default further steps wont be executed.
+              # Which is the opposite of the default behaviour since if run-tests fails, by default further steps & jobs wont be executed.
               # Now we use one of githusb 4 built in functions that returns a boolean true or false.
               # These are failure() success() always() & cancelled()
+              # Here we are making it specific, since the failure() can return true if any of the steps before the condition fails,
+              # So we say, if any of previous steps fail AND its due to the run-tests failing, then upload the test report.
+              # However, if we make no further changes to this file, other jobs downstream will be skipped by default which makes sense.
               uses: actions/upload-artifact@v3
               with:
                 name: test-report
@@ -86,3 +89,14 @@ jobs:
               run: ls
             - name: Deploy
               run: echo "Deploying...."
+
+    report: # Creating a new job to report what went wrong.
+        needs: [ lint, deploy ] # If we do not introduce this need, then it will run in parallel with Lint and hence never run.
+        if: failure()
+        # This expression/condition above calls the below function if any of the previous job fails, but it needs to run in sequence, not in parallel.
+        runs-on: ubuntu-latest
+        steps:
+            - name: Output information
+              run: |
+                echo "Something went wrong"
+                echo "${{ github }}"
