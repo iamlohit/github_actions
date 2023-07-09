@@ -38,10 +38,13 @@ jobs:
               run: npm ci
               working-directory: code/03-practice-project/
             - name: Run tests
+              id: run-tests #This is a user chosen ID used to reference this step elsewhere, in our cast its used in the if statement in next step.
               run: npm run test
               working-directory: code/03-practice-project/
-            - name: Upload test report
-              if:
+            - name: Upload test report #By default, if a step fails, everything beyond the step and jobs fail.
+              if: ${{ steps.run-tests.outcome == 'failure' }}
+              # Here we are saying that if the run-tests step succeeds, dont upload a report file, but if it fails, do upload a test-report file.
+              # Which is the opposite of the default behaviour since if run-tests fails, by default further steps wont be executed.
               uses: actions/upload-artifact@v3
               with:
                 name: test-report
