@@ -1,9 +1,9 @@
-name: Matrix Demo # The idea behind matrix is that you can run the same job with different parameters like os's/runners/library/framework versions.
+name: Matrix Reloaded Demo # The idea behind matrix is that you can run the same job with different parameters like os's/runners/library/framework versions.
 on:
     push: 
         branches: [ main ]
         paths:
-            - '.github/workflows/07-matrix.yml'
+            - '.github/workflows/07-matrix-reloaded.yml'
             - 'code/03-practice-project/'
 
 jobs:
@@ -15,6 +15,9 @@ jobs:
                 operating-system: [ubuntu-latest, windows-latest, macos-latest ] #Self explanatory.
                 # Here we have given a matrix of 2 parameters with 3 options each, so matrix is 3 with exponent of 2. which is 9 configurations.
                 # Note that all tese 9 jobs (from 9 configs) will run in parallel under the same workflow.
+                include: # We could have added the following node-ver/os to above array, but that would result in a matrix of 4 to power of 2, which would be 16 configurations.
+                    - node-version: 18 #This way we add the previous 9 config sets with 1 more set provided for a total of 10.
+                      operating-system: ubuntu-latest
         runs-on: ${{ matrix.operating-system }}
         steps:
             - name: Get Code
