@@ -1,4 +1,4 @@
-name: Website Deployment
+name: Conditional Exec Flow
 on:
     push: 
         branches: [ main ]
@@ -41,6 +41,7 @@ jobs:
               run: npm run test
               working-directory: code/03-practice-project/
             - name: Upload test report
+              if:
               uses: actions/upload-artifact@v3
               with:
                 name: test-report
