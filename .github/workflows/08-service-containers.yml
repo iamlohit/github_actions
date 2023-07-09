@@ -1,0 +1,60 @@
+name: Services (Container)
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/08-service-container.yml'
+      - 'code/05-docker-gha-demo/'
+env:
+  CACHE_KEY: node-deps
+  MONGODB_DB_NAME: gha-demo
+jobs:
+  test:
+    environment: testing
+    runs-on: ubuntu-latest
+    container:
+      image: node:16 #Container keyword and the docker image to use.
+    env: #This variables are for the runner machine and not the contianer, as its not nested inside the container here.
+    # Here we are running the MongoDB inside a service container.
+      MONGODB_CONNECTION_PROTOCOL: mongodb
+      MONGODB_CLUSTER_ADDRESS: mongodb # This is the name of the service container you have created.
+      MONGODB_USERNAME: root
+      MONGODB_PASSWORD: example
+      PORT: 8080
+    services: # Each service like container is defined per Job.
+        mongodb: # This is a name of your choosing for the service container you need.
+            image: mongo # This is the name of the base image name, it should be available in a public repo.
+            env: # These variables are specific to the image you are using.
+                MONGO_INIT_ROOT_USERNAME: root
+                MONGO_INIT_ROOT_PASSWORD: example
+    steps: # The steps however, are run inside the container.
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ env.CACHE_KEY }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
+        working-directory: code/05-docker-gha-demo
+      - name: Run server
+        run: npm start & npx wait-on http://127.0.0.1:$PORT # requires MongoDB Atlas to accept requests from anywhere!
+        working-directory: code/05-docker-gha-demo
+      - name: Run tests
+        run: npm test
+        working-directory: code/05-docker-gha-demo
+      - name: Output information
+        run: |
+          echo "MONGODB_USERNAME: $MONGODB_USERNAME"
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output information
+        env:
+          PORT: 3000
+        run: |        
+          echo "MONGODB_DB_NAME: $MONGODB_DB_NAME"
+          echo "MONGODB_USERNAME: $MONGODB_USERNAME"
+          echo "${{ env.PORT }}"
