@@ -7,6 +7,7 @@ Hope you learn something new here and if you are new to GitHub Actions then hope
 
 Dir Structure:
 
+```
 .
 ├── .github
 │   └── workflows
@@ -85,3 +86,4 @@ Dir Structure:
         │   └── events.js
         └── tests
             └── events-api.spec.js
+```
