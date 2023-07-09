@@ -1,4 +1,4 @@
-# github_actions
+# Learning GitHub Actions
 ## Building automated CI / CD workflows with GitHub's DevOps service
 
 ### This Repo has a few React and API projects in the code folder, which are used for understanding and learning Github Workflows.
