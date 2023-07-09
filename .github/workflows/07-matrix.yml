@@ -8,6 +8,7 @@ on:
 
 jobs:
     build:
+        continue-on-error: true #So that the job does not stop on a particular configuration if it fails.
         strategy: #Here we use the strategy keyword and then define a matrix of options.
             matrix: #This is the strategy method we chose.
                 node-version: [ 12,14,16] #Self explanatory.
