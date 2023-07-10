@@ -25,7 +25,7 @@ jobs:
         mongodb: # This is a name of your choosing for the service container you need.
             image: mongo # This is the name of the base image name, it should be available in a public repo.
             ports:
-                - 27017:27107 # This is where we do the port mapping of runner to the port of service container port for communication.
+                - 27017:27017 # This is where we do the port mapping of runner to the port of service container port for communication.
             env: # These variables are specific to the image you are using.
                 MONGO_INIT_ROOT_USERNAME: root
                 MONGO_INIT_ROOT_PASSWORD: example
