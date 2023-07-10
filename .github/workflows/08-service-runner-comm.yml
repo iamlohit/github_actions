@@ -42,8 +42,7 @@ jobs:
         working-directory: code/05-docker-gha-demo
       - name: Run server
         run: |
-            npm wait-on tcp:localhost:27017
-            npm start & 
+            npm start
             npx wait-on http://127.0.0.1:$PORT
         working-directory: code/05-docker-gha-demo
       - name: Run tests
