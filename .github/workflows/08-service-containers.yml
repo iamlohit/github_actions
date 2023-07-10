@@ -20,13 +20,13 @@ jobs:
       MONGODB_CLUSTER_ADDRESS: mongodb # This is the name of the service container you have created.
       MONGODB_USERNAME: root
       MONGODB_PASSWORD: example
-      PORT: 27017
+      PORT: 8080
     services: # Each service like container is defined per Job.
         mongodb: # This is a name of your choosing for the service container you need.
             image: mongo # This is the name of the base image name, it should be available in a public repo.
             env: # These variables are specific to the image you are using.
-                MONGO_INIT_ROOT_USERNAME: root
-                MONGO_INIT_ROOT_PASSWORD: example
+                MONGO_INITDB_ROOT_USERNAME: root
+                MONGO_INITDB_ROOT_PASSWORD: example
     steps: # The steps however, are run inside the container.
       - name: Get Code
         uses: actions/checkout@v3
