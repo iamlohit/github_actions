@@ -17,7 +17,7 @@ jobs:
     env: #This variables are for the runner machine and not the contianer, as its not nested inside the container here.
     # Here we are running the MongoDB inside a service container.
       MONGODB_CONNECTION_PROTOCOL: mongodb
-      MONGODB_CLUSTER_ADDRESS: 127.0.0.1:27071 # This is the address of the local runner.
+      MONGODB_CLUSTER_ADDRESS: 127.0.0.1:27017 # This is the address of the local runner.
       MONGODB_USERNAME: root
       MONGODB_PASSWORD: example
       PORT: 8080
