@@ -1,4 +1,4 @@
-name: Services (Container)
+name: Services Runner (Container)
 on:
   push:
     branches: [ main ]
