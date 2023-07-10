@@ -27,8 +27,8 @@ jobs:
             ports:
                 - 27017:27017 # This is where we do the port mapping of runner to the port of service container port for communication.
             env: # These variables are specific to the image you are using.
-                MONGO_INIT_ROOT_USERNAME: root
-                MONGO_INIT_ROOT_PASSWORD: example
+                MONGO_INITDB_ROOT_USERNAME: root
+                MONGO_INITDB_ROOT_PASSWORD: example
     steps: # The steps however, are run inside the runner.
       - name: Get Code
         uses: actions/checkout@v3
