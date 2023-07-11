@@ -20,8 +20,17 @@ Dir Structure:
 │       ├── 03-workflow-react.yml
 │       ├── 04-env-vars.yml
 │       ├── 05-execution-flow.yml
-│       └── 06-conditional-exec-flow.yml
+│       ├── 06-conditional-exec-flow.yml
+│       ├── 06-continue-on-error.yml
+│       ├── 07-matrix-reloaded.yml
+│       ├── 07-matrix.yml
+│       ├── 07-reusable.yml
+│       ├── 07-use-workflow.yml
+│       ├── 08-docker-gha.yml
+│       ├── 08-service-containers.yml
+│       └── 08-service-runner-comm.yml
 ├── .gitignore
+├── README.md
 └── code
     ├── 01_Basics
     │   └── 01_First_Workflow
@@ -75,7 +84,19 @@ Dir Structure:
     │   │   └── test
     │   │       └── setup.js
     │   └── vite.config.js
-    └── 04-Env-Secrets-Demo
+    ├── 04-Env-Secrets-Demo
+    │   ├── app.js
+    │   ├── data
+    │   │   └── database.js
+    │   ├── package-lock.json
+    │   ├── package.json
+    │   ├── playwright.config.js
+    │   ├── routes
+    │   │   └── events.js
+    │   └── tests
+    │       └── events-api.spec.js
+    └── 05-docker-gha-demo
+        ├── Dockerfile
         ├── app.js
         ├── data
         │   └── database.js
